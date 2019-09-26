@@ -51,7 +51,7 @@ namespace Producks.Web.Controllers
         }
 
         //GET api/Products
-        [HttpGet("api/Products/{category}")]
+        [HttpGet("api/Products")]
         public async Task<IActionResult> GetProducts(int? categoryId = null, int? brandId = null, int? priceMin = null, int? priceMax = null)
         {
             var products = await _context.Products
