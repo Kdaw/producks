@@ -64,8 +64,10 @@ namespace Producks.Web.Controllers
                                                 Description = p.Description,
                                                 Price = p.Price
                                             })
-                                            .Where(prod => (prod.CategoryId == categoryId || categoryId == null)
-                                                            && (prod.BrandId = brandId || brandId == null)
+                                            .Where(prod => (categoryId == null || prod.CategoryId == categoryId)
+                                                            && (brandId == null || prod.BrandId == brandId)
+                                                            && (priceMin == null || prod.Price >= priceMin)
+                                                            && (priceMax == null || prod.Price <= priceMax)
                                             )
                                             .ToListAsync();
             return Ok(products);
