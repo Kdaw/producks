@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace Producks.Web.Models
 {
-    public class UnderCutterBrandDto
+    public class UnderCutterBrandDto : BrandDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public int AvailableProductCount { get; set; }
     }
 }

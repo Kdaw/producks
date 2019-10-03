@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Producks.Data;
+using Producks.Web.Models;
 
 namespace Producks.Web.Controllers
 {
     public class BrandsController : Controller
     {
         private readonly StoreDb _context;
+        static HttpClient client = new HttpClient();
 
         public BrandsController(StoreDb context)
         {
@@ -21,8 +24,22 @@ namespace Producks.Web.Controllers
         // GET: Brands
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Brands.Where(b => b.Active)
+            List<UnderCutterBrandDto> UCBrand = null;
+            HttpResponseMessage response = await client.GetAsync("http://undercutters.azurewebsites.net/api/brand");
+            List<Brand> brand = null;
+
+            if (response.IsSuccessStatusCode)
+            {
+                UCBrand = await response.Content.ReadAsAsync<List<UnderCutterBrandDto>>();
+            }
+
+            brand = (await _context.Brands.Where(b => b.Active)
                                             .ToListAsync());
+
+
+            //join the two lists
+            //need to make both objects inherit from one core interface
+            return View(brand.Concat(UCBrand));
         }
 
         // GET: Brands/Details/5
