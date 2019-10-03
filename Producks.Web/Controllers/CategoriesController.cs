@@ -21,7 +21,8 @@ namespace Producks.Web.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(await _context.Categories.Where(c => c.Active)
+                                                .ToListAsync());
         }
 
         // GET: Categories/Details/5

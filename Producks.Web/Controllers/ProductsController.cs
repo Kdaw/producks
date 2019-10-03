@@ -22,7 +22,8 @@ namespace Producks.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var storeDb = _context.Products.Include(p => p.Brand).Include(p => p.Category);
-            return View(await storeDb.ToListAsync());
+            return View(await storeDb.Where(p => p.Active)
+                                    .ToListAsync());
         }
 
         // GET: Products/Details/5

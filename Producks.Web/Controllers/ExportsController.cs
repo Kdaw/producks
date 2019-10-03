@@ -30,6 +30,7 @@ namespace Producks.Web.Controllers
                                            Name = b.Name,
                                            Active = b.Active
                                        })
+                                       .Where(b => b.Active)
                                        .ToListAsync();
             return Ok(brands);
         }
@@ -46,6 +47,7 @@ namespace Producks.Web.Controllers
                                                 Description = c.Description,
                                                 Active = c.Active
                                             })
+                                            .Where(c => c.Active)
                                             .ToListAsync();
             return Ok(categories);
         }

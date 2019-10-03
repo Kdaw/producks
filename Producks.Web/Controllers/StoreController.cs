@@ -20,7 +20,8 @@ namespace Producks.Web.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(await _context.Categories.Where(p => p.Active)
+                                                .ToListAsync());
         }
 
         // GET: Categories/Details/5
@@ -32,7 +33,8 @@ namespace Producks.Web.Controllers
             }
 
             var products = await _context.Products
-                .Where(p => p.CategoryId == id)
+                .Where(p => (p.CategoryId == id)
+                    && p.Active)
                 .ToListAsync();
             if(products == null)
             {
