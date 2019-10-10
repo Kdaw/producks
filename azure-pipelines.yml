@@ -32,5 +32,11 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: '<Azure service connection>'
+    appName: '<Name of web app>'
+    package: $(System.ArtifactsDirectory)/**/*.zip 
 
 - task: PublishBuildArtifacts@1
