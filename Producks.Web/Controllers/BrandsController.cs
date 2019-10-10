@@ -39,7 +39,7 @@ namespace Producks.Web.Controllers
 
             //join the two lists
             //need to make both objects inherit from one core interface
-            return View(brand.Concat(UCBrand));
+            return View(UCBrand);
         }
 
         // GET: Brands/Details/5
